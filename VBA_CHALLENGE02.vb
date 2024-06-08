@@ -1,18 +1,17 @@
-Sub tickerloop():
+Sub ticker_loop():
 Dim ws As Worksheet
     For Each ws In ThisWorkbook.Worksheets
-        'Set variable for name
         Dim tickername As String
     
-        'Set varable for total count on the total volume
+        'Set count on the volume
         Dim tickervolume As Double
         tickervolume = 0
 
-        'Keep track of each ticker name
+        'Track of each ticker name
         Dim summary_ticker_row As Integer
         summary_ticker_row = 2
         
-        'Yearly price = Close Price rice at end of yr - Open Price at start of yr)
+        'Yearly price = Close Price at end of yr - Open Price at start of yr)
         'Percent change =((Close - Open)/Open)*100
         Dim open_price As Double
         open_price = Cells(2, 3).Value
@@ -30,7 +29,7 @@ Dim ws As Worksheet
         'Count # of rows in first column
         lastrow = Cells(Rows.Count, 1).End(xlUp).Row
 
-        'Loop
+        'Loopy
         For i = 2 To lastrow
 
             'Searches for when value of next cell changes from current
@@ -57,14 +56,14 @@ Dim ws As Worksheet
               'Add yearly change
               Range("J" & summary_ticker_row).Value = yearly_change
 
-              'Check non-divisibilty when calculating the percent
+              'Check non-divisibilty when calculating the percent (?)
                 If open_price = 0 Then
                     percent_change = 0
                 Else
                     percent_change = yearly_change / open_price
                 End If
 
-              'Add yearly change
+              'Add yearly change (make it as a percentage)
               Range("K" & summary_ticker_row).Value = percent_change
               Range("K" & summary_ticker_row).NumberFormat = "0.00%"
    
@@ -87,7 +86,7 @@ Dim ws As Worksheet
         Next i
 
     'Conditional formatting (green is 10, red is 3)
-    'Find the last row
+    'Find last row
 
     lastrow_summary_table = Cells(Rows.Count, 9).End(xlUp).Row
     
